@@ -33,7 +33,7 @@ class Dino(Sprite):
             self.dino_run = False
             self.dino_duck = False
             self.dino_jump = True
-        elif user_input[pygame.K_DOWN] and not self.dino_duck and not self.dino_jump:
+        elif user_input[pygame.K_DOWN] and not self.dino_duck:
             self.dino_duck = True
             self.dino_jump = False
             self.dino_run = False
@@ -60,6 +60,7 @@ class Dino(Sprite):
         self.step_index += 1     
     
     def duck(self):
+        self.jump_vel = self.JUMP_VEL
         self.image = DUCKING
         if self.step_index <= 5:
             self.image = DUCKING[0]
