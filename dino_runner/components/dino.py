@@ -1,11 +1,13 @@
 import pygame
 from pygame.sprite import Sprite
-from dino_runner.utils.constants import JUMPING, RUNNING
+from dino_runner.utils.constants import DUCKING, JUMPING, RUNNING
 
 class Dino(Sprite):
     POS_X = 80
     POS_Y = 310
     JUMP_VEL = 8
+    POS_Y_DUCK = 340
+
     def __init__(self):
         self.image = RUNNING[0]
         self.dino_rect = self.image.get_rect() #informacion de la imagen
@@ -27,11 +29,11 @@ class Dino(Sprite):
 
         #Estados del dinosaurio segun la tecla que presionemos
 
-        if user_input[pygame.K_UP] or user_input[pygame.K_SPACE] and not self.dino_jump:  #Agregue la tecla space por comodidad con un or
+        if (user_input[pygame.K_UP] or user_input[pygame.K_SPACE]) and not self.dino_jump:  #Agregue la tecla space por comodidad con un or
             self.dino_run = False
             self.dino_duck = False
             self.dino_jump = True
-        elif user_input[pygame.K_DOWN] and not self.dino_duck:
+        elif user_input[pygame.K_DOWN] and not self.dino_duck and not self.dino_jump:
             self.dino_duck = True
             self.dino_jump = False
             self.dino_run = False
@@ -46,8 +48,9 @@ class Dino(Sprite):
     def draw(self,screen):
         screen.blit(self.image,(self.dino_rect.x,self.dino_rect.y))
 
+
     def run(self):
-        if self.step_index < 5:
+        if self.step_index <= 5:
             self.image = RUNNING[0]
         else:
             self.image = RUNNING[1]
@@ -57,7 +60,16 @@ class Dino(Sprite):
         self.step_index += 1     
     
     def duck(self):
-        pass
+        self.image = DUCKING
+        if self.step_index <= 5:
+            self.image = DUCKING[0]
+        else:
+            self.image = DUCKING[1]
+
+        self.dino_rect.x = self.POS_X 
+        self.dino_rect.y = self.POS_Y_DUCK
+        self.dino_duck = False
+        self.step_index += 1     
 
     def jump(self):
         self.image = JUMPING
