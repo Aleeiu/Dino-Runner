@@ -86,7 +86,7 @@ class Game:
             text, text_rect = text_utils.get_centered_message('Press any Key to start')
             self.screen.blit(text, text_rect)
         else:
-            score_text, score_rect = text_utils.get_centered_message1('Tu puntaje del ultimo intento fue: '+ str(self.last_score))
+            score_text, score_rect = text_utils.get_centered_message('Tu puntaje del ultimo intento fue: '+ str(self.last_score),width = SCREEN_WIDTH // 2, height = SCREEN_HEIGHT // 2.5)
             death_text, death_rect = text_utils.get_centered_message('Las veces que has muerto: '+str(self.death_count))
         
             #score_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 30)
