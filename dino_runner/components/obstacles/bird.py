@@ -9,7 +9,7 @@ class Bird(Obstacle):
         self.dino_rect = self.image.get_rect() #informacion de la imagen
         self.type = 0
         super().__init__(image,self.type)
-        self.rect.y = random.choice([240, 290, 320])
+        self.rect.y = random.choice([240, 300, 325])
         self.fly_index = 0
         
 
