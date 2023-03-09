@@ -7,6 +7,7 @@ class Dino(Sprite):
     POS_Y = 310
     JUMP_VEL = 8
     POS_Y_DUCK = 340
+    
 
     def __init__(self):
         self.image = RUNNING [0]
@@ -27,6 +28,8 @@ class Dino(Sprite):
         self.shield = False
         self.shield_time_up = 0
         self.show_text = False
+        
+        
 
     def setup_state_booleans (self):
         self.has_powerup = False
@@ -58,7 +61,13 @@ class Dino(Sprite):
             self.dino_run = True
 
         if self.step_index >= 10:  #resetea el contador para cambio de imagen
-            self.step_index = 0 
+            self.step_index = 0
+
+        current_time = pygame.time.get_ticks()
+        if self.shield and current_time > self.shield_time_up:
+            self.shield = False
+            self.update_to_default(SHIELD_TYPE) 
+
 
     def draw(self,screen):
         screen.blit(self.image,(self.dino_rect.x,self.dino_rect.y))
@@ -111,3 +120,13 @@ class Dino(Sprite):
     def update_to_default (self, current_type):
         if self.type == current_type:
             self.type = DEFAULT_TYPE
+
+    def update_to_default(self, current_type):
+        if self.type == current_type:
+            self.type = DEFAULT_TYPE
+            if self.dino_run:
+                self.image = self.run_img[self.type][0]
+            elif self.dino_jump:
+                self.image = self.jump_img[self.type]
+            elif self.dino_duck:
+                self.image = self.duck_img[self.type][0]
