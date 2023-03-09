@@ -19,7 +19,7 @@ class Game:
         self.playing = False
         self.game_speed = 20
         self.x_pos_bg = 0
-        self.y_pos_bg = 230
+        self.y_pos_bg = 0
         self.player = Dino()
         self.obstacle_manager = ObstacleManager()
         self.points = 0
