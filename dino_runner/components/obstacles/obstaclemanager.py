@@ -9,6 +9,7 @@ class ObstacleManager:
     def __init__(self):
         self.obstacles = []
 
+
     def update(self, game):
         if len(self.obstacles) == 0:
             obstacle_type = random.randint(0,2)
@@ -22,9 +23,14 @@ class ObstacleManager:
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
-                pygame.time.delay(1000)
-                game.playing = False
-                break
+                if not game.player.shield:
+                    pygame.mixer.music.stop()
+                    pygame.time.delay(1000)
+                    game.death_count +=1
+                    game.playing = False
+                    break
+                else:
+                    self.obstacles.remove(obstacle)
 
     def draw (self, screen):
         for obstacle in self.obstacles:
