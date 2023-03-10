@@ -26,7 +26,6 @@ class ObstacleManager:
                 if not game.player.shield:
                     pygame.mixer.music.stop()
                     pygame.time.delay(1000)
-                    game.death_count +=1
                     game.playing = False
                     break
                 else:
